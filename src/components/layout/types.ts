@@ -18,14 +18,18 @@ interface BaseNavItem {
   icon?: React.ElementType
 }
 
+type InternalUrl = LinkProps['to']
+type ExternalUrl = `https://${string}`
+type NavUrl = InternalUrl | ExternalUrl
+
 type NavLink = BaseNavItem & {
-  url: LinkProps['to']
+  url: NavUrl
   items?: never
   isExternal?: boolean
 }
 
 type NavCollapsible = BaseNavItem & {
-  items: (BaseNavItem & { url: LinkProps['to'] })[]
+  items: (BaseNavItem & { url: NavUrl })[]
   url?: never
 }
 

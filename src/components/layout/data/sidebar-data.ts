@@ -1,4 +1,3 @@
-
 import { AudioWaveform, Command, GalleryVerticalEnd, BookText, Building, Users, SquareArrowOutUpRight } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -120,7 +119,7 @@ export const sidebarData: SidebarData = {
       // ],
     // },
     {
-      title: '',
+      title: 'マニュアル管理',
       items: [
         {
           title: 'マニュアル',
@@ -128,7 +127,7 @@ export const sidebarData: SidebarData = {
           items: [
             {
               title: '公開中',
-              url: '/tasks?status=published',
+              url: '/manuals/published',
             },
             {
               title: '非公開',
@@ -201,7 +200,7 @@ export const sidebarData: SidebarData = {
     },
     // 外部リンクに対応したフラグとリンク管理
     {
-      title: '',
+      title: '外部リンク',
       items: [
         {
           title: 'ロジポケ',

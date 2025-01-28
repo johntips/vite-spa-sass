@@ -77,13 +77,13 @@ const SidebarMenuLink = ({ item, href, isExternal }: { item: NavLink; href: stri
         >
           {isExternal ? (
             <>
-              <span>{item.title}</span>
+              <p className='font-semibold'>{item.title}</p>
               {item.icon && <item.icon className="ml-auto" />}
             </>
           ) : (
             <>
               {item.icon && <item.icon />}
-              <span>{item.title}</span>
+              <p className='font-semibold'>{item.title}</p>
             </>
           )}
         </Link>
@@ -110,7 +110,7 @@ const SidebarMenuCollapsible = ({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <p className='font-semibold'>{item.title}</p>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
@@ -154,7 +154,7 @@ const SidebarMenuCollapsedDropdown = ({
             isActive={checkIsActive(href, item)}
           >
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <p className='font-semibold'>{item.title}</p>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
