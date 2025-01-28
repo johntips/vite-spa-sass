@@ -1,25 +1,5 @@
-import {
-  IconBarrierBlock,
-  IconBrowserCheck,
-  IconBug,
-  IconChecklist,
-  IconError404,
-  IconHelp,
-  IconLayoutDashboard,
-  IconLock,
-  IconLockAccess,
-  IconMessages,
-  IconNotification,
-  IconPackages,
-  IconPalette,
-  IconServerOff,
-  IconSettings,
-  IconTool,
-  IconUserCog,
-  IconUserOff,
-  IconUsers,
-} from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
+
+import { AudioWaveform, Command, GalleryVerticalEnd, BookText, Building, Users, SquareArrowOutUpRight } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -46,37 +26,37 @@ export const sidebarData: SidebarData = {
     },
   ],
   navGroups: [
-    {
-      title: 'General',
-      items: [
-        {
-          title: 'Dashboard',
-          url: '/',
-          icon: IconLayoutDashboard,
-        },
-        {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: IconChecklist,
-        },
-        // {
-        //   title: 'Apps',
-        //   url: '/apps',
-        //   icon: IconPackages,
-        // },
-        // {
-        //   title: 'Chats',
-        //   url: '/chats',
-        //   badge: '3',
-        //   icon: IconMessages,
-        // },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: IconUsers,
-        },
-      ],
-    },
+    // {
+    //   title: 'General',
+    //   items: [
+    //     {
+    //       title: 'Dashboard',
+    //       url: '/',
+    //       icon: IconLayoutDashboard,
+    //     },
+    //     {
+    //       title: 'Tasks',
+    //       url: '/tasks',
+    //       icon: IconChecklist,
+    //     },
+    //     // {
+    //     //   title: 'Apps',
+    //     //   url: '/apps',
+    //     //   icon: IconPackages,
+    //     // },
+    //     // {
+    //     //   title: 'Chats',
+    //     //   url: '/chats',
+    //     //   badge: '3',
+    //     //   icon: IconMessages,
+    //     // },
+    //     {
+    //       title: 'Users',
+    //       url: '/users',
+    //       icon: IconUsers,
+    //     },
+    //   ],
+    // },
     // {
       // title: 'Pages',
       // items: [
@@ -140,44 +120,101 @@ export const sidebarData: SidebarData = {
       // ],
     // },
     {
-      title: 'Other',
+      title: '',
       items: [
         {
-          title: 'Settings',
-          icon: IconSettings,
+          title: 'マニュアル',
+          icon: BookText,
           items: [
             {
-              title: 'Profile',
-              url: '/settings',
-              icon: IconUserCog,
+              title: '公開中',
+              url: '/tasks?status=published',
             },
             {
-              title: 'Account',
-              url: '/settings/account',
-              icon: IconTool,
+              title: '非公開',
+              url: '/tasks?status=private',
             },
             {
-              title: 'Appearance',
-              url: '/settings/appearance',
-              icon: IconPalette,
+              title: '下書き',
+              url: '/tasks?status=draft',
             },
             {
-              title: 'Notifications',
-              url: '/settings/notifications',
-              icon: IconNotification,
-            },
-            {
-              title: 'Display',
-              url: '/settings/display',
-              icon: IconBrowserCheck,
+              title: 'ゴミ箱',
+              url: '/tasks?status=trash',
             },
           ],
         },
+      ],
+    },
+    {
+      title: '管理',
+      items: [
+        {
+          title: '組織設定',
+          url: '/settings/display',
+          icon: Building,
+        },
+        {
+          title: 'アカウント設定',
+          url: '/settings/account',
+          icon: Users,
+        },
+      ]
+      // items: [
+      //   {
+      //     title: '組織設定',
+      //     icon: IconSettings,
+      //     items: [
+      //       {
+      //         title: 'Profile',
+      //         url: '/settings',
+      //         icon: IconUserCog,
+      //       },
+      //       {
+      //         title: 'Account',
+      //         url: '/settings/account',
+      //         icon: IconTool,
+      //       },
+      //       {
+      //         title: 'Appearance',
+      //         url: '/settings/appearance',
+      //         icon: IconPalette,
+      //       },
+      //       {
+      //         title: 'Notifications',
+      //         url: '/settings/notifications',
+      //         icon: IconNotification,
+      //       },
+      //       {
+      //         title: 'Display',
+      //         url: '/settings/display',
+      //         icon: IconBrowserCheck,
+      //       },
+      //     ],
+      //   },
         // {
         //   title: 'Help Center',
         //   url: '/help-center',
         //   icon: IconHelp,
         // },
+      // ],
+    },
+    // 外部リンクに対応したフラグとリンク管理
+    {
+      title: '',
+      items: [
+        {
+          title: 'ロジポケ',
+          url: 'https://yourtruck.jp',
+          icon: SquareArrowOutUpRight,
+          isExternal: true,
+        },
+        {
+          title: 'モビポケ',
+          url: 'https://bus.yourtruck.jp/',
+          icon: SquareArrowOutUpRight,
+          isExternal: true,
+        },
       ],
     },
   ],

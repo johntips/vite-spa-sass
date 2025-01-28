@@ -21,6 +21,7 @@ interface BaseNavItem {
 type NavLink = BaseNavItem & {
   url: LinkProps['to']
   items?: never
+  isExternal?: boolean
 }
 
 type NavCollapsible = BaseNavItem & {

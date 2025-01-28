@@ -33,13 +33,13 @@ export function NavGroup({ title, items }: NavGroup) {
   const href = useLocation({ select: (location) => location.href })
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{title}</SidebarGroupLabel>
+      {title && <SidebarGroupLabel >{title}</SidebarGroupLabel>}
       <SidebarMenu>
         {items.map((item) => {
           const key = `${item.title}-${item.url}`
 
           if (!item.items)
-            return <SidebarMenuLink key={key} item={item} href={href} />
+            return <SidebarMenuLink key={key} item={item} href={href} isExternal={item.isExternal} />
 
           if (state === 'collapsed')
             return (
@@ -57,7 +57,7 @@ const NavBadge = ({ children }: { children: ReactNode }) => (
   <Badge className='text-xs rounded-full px-1 py-0'>{children}</Badge>
 )
 
-const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
+const SidebarMenuLink = ({ item, href, isExternal }: { item: NavLink; href: string; isExternal?: boolean }) => {
   const { setOpenMobile } = useSidebar()
   return (
     <SidebarMenuItem>
@@ -66,10 +66,26 @@ const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
         isActive={checkIsActive(href, item)}
         tooltip={item.title}
       >
-        <Link to={item.url} onClick={() => setOpenMobile(false)}>
-          {item.icon && <item.icon />}
-          <span>{item.title}</span>
-          {item.badge && <NavBadge>{item.badge}</NavBadge>}
+        <Link
+          to={item.url}
+          onClick={() => setOpenMobile(false)}
+          className="w-full"
+          {...(isExternal ? {
+            target: "_blank",
+            rel: "noopener noreferrer"
+          } : {})}
+        >
+          {isExternal ? (
+            <>
+              <span>{item.title}</span>
+              {item.icon && <item.icon className="ml-auto" />}
+            </>
+          ) : (
+            <>
+              {item.icon && <item.icon />}
+              <span>{item.title}</span>
+            </>
+          )}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
@@ -87,7 +103,7 @@ const SidebarMenuCollapsible = ({
   return (
     <Collapsible
       asChild
-      defaultOpen={checkIsActive(href, item, true)}
+      defaultOpen={true}
       className='group/collapsible'
     >
       <SidebarMenuItem>
