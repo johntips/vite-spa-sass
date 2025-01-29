@@ -9,12 +9,12 @@ import { filterManualsByStatus } from '@/features/manual/utils/filter-manuals'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 
-export const Route = createLazyFileRoute('/_authenticated/manuals/published/')({
-  component: PublishedManualsPage,
+export const Route = createLazyFileRoute('/_authenticated/manuals/private/')({
+  component: PrivateManualsPage,
 })
 
-export default function PublishedManualsPage() {
-  const publishedManuals = filterManualsByStatus(manuals, 'published')
+export default function PrivateManualsPage() {
+  const privateManuals = filterManualsByStatus(manuals, 'private')
 
   return (
     <ManualProvider>
@@ -22,15 +22,15 @@ export default function PublishedManualsPage() {
       <Main>
         <div className='flex-1'>
           <div className='flex items-center justify-between space-y-2'>
-            <h3 className='text-xl font-bold tracking-tight'>公開中のマニュアル</h3>
+            <h3 className='text-xl font-bold tracking-tight'>非公開のマニュアル</h3>
             <ManualPrimaryButtons />
           </div>
           <div className='mt-4'>
-            <DataTable data={publishedManuals} columns={columns} />
+            <DataTable data={privateManuals} columns={columns} />
           </div>
         </div>
       </Main>
       <ManualDialogs />
     </ManualProvider>
   )
-}
+} 

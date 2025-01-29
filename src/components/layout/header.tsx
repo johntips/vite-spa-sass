@@ -45,11 +45,11 @@ export const Header = ({
         <Separator orientation='vertical' className='h-6' />
         <BreadCrumb />
       </div>
-      <div className="flex items-center h-full">
+      <div className="flex items-center h-full mr-2">
         <Separator orientation='vertical' className='h-full mr-2' />
         <ProfileDropdown
           name={`${currentUser.firstName} ${currentUser.lastName}`}
-          company="ロジポケサービス株式会社"
+          role={currentUser.role}
           className="px-6"
         />
       </div>

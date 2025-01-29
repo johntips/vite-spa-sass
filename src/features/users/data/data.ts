@@ -1,7 +1,5 @@
 import {
   IconCash,
-  IconShield,
-  IconUsersGroup,
   IconUserShield,
 } from '@tabler/icons-react'
 import { UserStatus } from './schema'
@@ -18,23 +16,19 @@ export const callTypes = new Map<UserStatus, string>([
 
 export const userTypes = [
   {
-    label: 'Superadmin',
-    value: 'superadmin',
-    icon: IconShield,
-  },
-  {
-    label: 'Admin',
+    label: '管理者',
     value: 'admin',
     icon: IconUserShield,
   },
+
   {
-    label: 'Manager',
-    value: 'manager',
-    icon: IconUsersGroup,
-  },
-  {
-    label: 'Cashier',
-    value: 'cashier',
+    label: 'メンバー',
+    value: 'member',
     icon: IconCash,
   },
 ] as const
+
+export const getRoleLabel = (roleValue: string): string => {
+  const role = userTypes.find(({ value }) => value === roleValue)
+  return role ? role.label : roleValue
+}

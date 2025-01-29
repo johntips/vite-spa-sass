@@ -43,6 +43,9 @@ const AuthenticatedTasksIndexLazyImport = createFileRoute(
 const AuthenticatedSettingsIndexLazyImport = createFileRoute(
   '/_authenticated/settings/',
 )()
+const AuthenticatedManualsIndexLazyImport = createFileRoute(
+  '/_authenticated/manuals/',
+)()
 const AuthenticatedHelpCenterIndexLazyImport = createFileRoute(
   '/_authenticated/help-center/',
 )()
@@ -64,8 +67,17 @@ const AuthenticatedSettingsAppearanceLazyImport = createFileRoute(
 const AuthenticatedSettingsAccountLazyImport = createFileRoute(
   '/_authenticated/settings/account',
 )()
+const AuthenticatedManualsTrashIndexLazyImport = createFileRoute(
+  '/_authenticated/manuals/trash/',
+)()
 const AuthenticatedManualsPublishedIndexLazyImport = createFileRoute(
   '/_authenticated/manuals/published/',
+)()
+const AuthenticatedManualsPrivateIndexLazyImport = createFileRoute(
+  '/_authenticated/manuals/private/',
+)()
+const AuthenticatedManualsDraftIndexLazyImport = createFileRoute(
+  '/_authenticated/manuals/draft/',
 )()
 
 // Create/Update Routes
@@ -203,6 +215,15 @@ const AuthenticatedSettingsIndexLazyRoute =
     import('./routes/_authenticated/settings/index.lazy').then((d) => d.Route),
   )
 
+const AuthenticatedManualsIndexLazyRoute =
+  AuthenticatedManualsIndexLazyImport.update({
+    id: '/manuals/',
+    path: '/manuals/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/manuals/index.lazy').then((d) => d.Route),
+  )
+
 const AuthenticatedHelpCenterIndexLazyRoute =
   AuthenticatedHelpCenterIndexLazyImport.update({
     id: '/help-center/',
@@ -277,6 +298,17 @@ const AuthenticatedSettingsAccountLazyRoute =
     ),
   )
 
+const AuthenticatedManualsTrashIndexLazyRoute =
+  AuthenticatedManualsTrashIndexLazyImport.update({
+    id: '/manuals/trash/',
+    path: '/manuals/trash/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/manuals/trash/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedManualsPublishedIndexLazyRoute =
   AuthenticatedManualsPublishedIndexLazyImport.update({
     id: '/manuals/published/',
@@ -284,6 +316,28 @@ const AuthenticatedManualsPublishedIndexLazyRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/manuals/published/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedManualsPrivateIndexLazyRoute =
+  AuthenticatedManualsPrivateIndexLazyImport.update({
+    id: '/manuals/private/',
+    path: '/manuals/private/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/manuals/private/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedManualsDraftIndexLazyRoute =
+  AuthenticatedManualsDraftIndexLazyImport.update({
+    id: '/manuals/draft/',
+    path: '/manuals/draft/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/manuals/draft/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -439,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/manuals/': {
+      id: '/_authenticated/manuals/'
+      path: '/manuals'
+      fullPath: '/manuals'
+      preLoaderRoute: typeof AuthenticatedManualsIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
       path: '/'
@@ -460,11 +521,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/manuals/draft/': {
+      id: '/_authenticated/manuals/draft/'
+      path: '/manuals/draft'
+      fullPath: '/manuals/draft'
+      preLoaderRoute: typeof AuthenticatedManualsDraftIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/manuals/private/': {
+      id: '/_authenticated/manuals/private/'
+      path: '/manuals/private'
+      fullPath: '/manuals/private'
+      preLoaderRoute: typeof AuthenticatedManualsPrivateIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/manuals/published/': {
       id: '/_authenticated/manuals/published/'
       path: '/manuals/published'
       fullPath: '/manuals/published'
       preLoaderRoute: typeof AuthenticatedManualsPublishedIndexLazyImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/manuals/trash/': {
+      id: '/_authenticated/manuals/trash/'
+      path: '/manuals/trash'
+      fullPath: '/manuals/trash'
+      preLoaderRoute: typeof AuthenticatedManualsTrashIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
   }
@@ -504,9 +586,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppsIndexLazyRoute: typeof AuthenticatedAppsIndexLazyRoute
   AuthenticatedChatsIndexLazyRoute: typeof AuthenticatedChatsIndexLazyRoute
   AuthenticatedHelpCenterIndexLazyRoute: typeof AuthenticatedHelpCenterIndexLazyRoute
+  AuthenticatedManualsIndexLazyRoute: typeof AuthenticatedManualsIndexLazyRoute
   AuthenticatedTasksIndexLazyRoute: typeof AuthenticatedTasksIndexLazyRoute
   AuthenticatedUsersIndexLazyRoute: typeof AuthenticatedUsersIndexLazyRoute
+  AuthenticatedManualsDraftIndexLazyRoute: typeof AuthenticatedManualsDraftIndexLazyRoute
+  AuthenticatedManualsPrivateIndexLazyRoute: typeof AuthenticatedManualsPrivateIndexLazyRoute
   AuthenticatedManualsPublishedIndexLazyRoute: typeof AuthenticatedManualsPublishedIndexLazyRoute
+  AuthenticatedManualsTrashIndexLazyRoute: typeof AuthenticatedManualsTrashIndexLazyRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -516,10 +602,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppsIndexLazyRoute: AuthenticatedAppsIndexLazyRoute,
   AuthenticatedChatsIndexLazyRoute: AuthenticatedChatsIndexLazyRoute,
   AuthenticatedHelpCenterIndexLazyRoute: AuthenticatedHelpCenterIndexLazyRoute,
+  AuthenticatedManualsIndexLazyRoute: AuthenticatedManualsIndexLazyRoute,
   AuthenticatedTasksIndexLazyRoute: AuthenticatedTasksIndexLazyRoute,
   AuthenticatedUsersIndexLazyRoute: AuthenticatedUsersIndexLazyRoute,
+  AuthenticatedManualsDraftIndexLazyRoute:
+    AuthenticatedManualsDraftIndexLazyRoute,
+  AuthenticatedManualsPrivateIndexLazyRoute:
+    AuthenticatedManualsPrivateIndexLazyRoute,
   AuthenticatedManualsPublishedIndexLazyRoute:
     AuthenticatedManualsPublishedIndexLazyRoute,
+  AuthenticatedManualsTrashIndexLazyRoute:
+    AuthenticatedManualsTrashIndexLazyRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -546,10 +639,14 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexLazyRoute
+  '/manuals': typeof AuthenticatedManualsIndexLazyRoute
   '/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
+  '/manuals/draft': typeof AuthenticatedManualsDraftIndexLazyRoute
+  '/manuals/private': typeof AuthenticatedManualsPrivateIndexLazyRoute
   '/manuals/published': typeof AuthenticatedManualsPublishedIndexLazyRoute
+  '/manuals/trash': typeof AuthenticatedManualsTrashIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -571,10 +668,14 @@ export interface FileRoutesByTo {
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexLazyRoute
+  '/manuals': typeof AuthenticatedManualsIndexLazyRoute
   '/settings': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
+  '/manuals/draft': typeof AuthenticatedManualsDraftIndexLazyRoute
+  '/manuals/private': typeof AuthenticatedManualsPrivateIndexLazyRoute
   '/manuals/published': typeof AuthenticatedManualsPublishedIndexLazyRoute
+  '/manuals/trash': typeof AuthenticatedManualsTrashIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -600,10 +701,14 @@ export interface FileRoutesById {
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexLazyRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexLazyRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexLazyRoute
+  '/_authenticated/manuals/': typeof AuthenticatedManualsIndexLazyRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexLazyRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexLazyRoute
+  '/_authenticated/manuals/draft/': typeof AuthenticatedManualsDraftIndexLazyRoute
+  '/_authenticated/manuals/private/': typeof AuthenticatedManualsPrivateIndexLazyRoute
   '/_authenticated/manuals/published/': typeof AuthenticatedManualsPublishedIndexLazyRoute
+  '/_authenticated/manuals/trash/': typeof AuthenticatedManualsTrashIndexLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -629,10 +734,14 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/help-center'
+    | '/manuals'
     | '/settings/'
     | '/tasks'
     | '/users'
+    | '/manuals/draft'
+    | '/manuals/private'
     | '/manuals/published'
+    | '/manuals/trash'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/500'
@@ -653,10 +762,14 @@ export interface FileRouteTypes {
     | '/apps'
     | '/chats'
     | '/help-center'
+    | '/manuals'
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/manuals/draft'
+    | '/manuals/private'
     | '/manuals/published'
+    | '/manuals/trash'
   id:
     | '__root__'
     | '/_authenticated'
@@ -680,10 +793,14 @@ export interface FileRouteTypes {
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/manuals/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/manuals/draft/'
+    | '/_authenticated/manuals/private/'
     | '/_authenticated/manuals/published/'
+    | '/_authenticated/manuals/trash/'
   fileRoutesById: FileRoutesById
 }
 
@@ -749,9 +866,13 @@ export const routeTree = rootRoute
         "/_authenticated/apps/",
         "/_authenticated/chats/",
         "/_authenticated/help-center/",
+        "/_authenticated/manuals/",
         "/_authenticated/tasks/",
         "/_authenticated/users/",
-        "/_authenticated/manuals/published/"
+        "/_authenticated/manuals/draft/",
+        "/_authenticated/manuals/private/",
+        "/_authenticated/manuals/published/",
+        "/_authenticated/manuals/trash/"
       ]
     },
     "/(auth)/500": {
@@ -830,6 +951,10 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/help-center/index.lazy.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/manuals/": {
+      "filePath": "_authenticated/manuals/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/settings/": {
       "filePath": "_authenticated/settings/index.lazy.tsx",
       "parent": "/_authenticated/settings"
@@ -842,8 +967,20 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/users/index.lazy.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/manuals/draft/": {
+      "filePath": "_authenticated/manuals/draft/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/manuals/private/": {
+      "filePath": "_authenticated/manuals/private/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/manuals/published/": {
       "filePath": "_authenticated/manuals/published/index.lazy.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/manuals/trash/": {
+      "filePath": "_authenticated/manuals/trash/index.lazy.tsx",
       "parent": "/_authenticated"
     }
   }

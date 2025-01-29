@@ -5,32 +5,29 @@ import { DataTable } from '@/features/manual/components/data-table'
 import { ManualDialogs } from '@/features/manual/components/manuals-dialogs'
 import { ManualPrimaryButtons } from '@/features/manual/components/manuals-primary-buttons'
 import { manuals } from '@/features/manual/data/manuals'
-import { filterManualsByStatus } from '@/features/manual/utils/filter-manuals'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 
-export const Route = createLazyFileRoute('/_authenticated/manuals/published/')({
-  component: PublishedManualsPage,
+export const Route = createLazyFileRoute('/_authenticated/manuals/')({
+  component: ManualsPage,
 })
 
-export default function PublishedManualsPage() {
-  const publishedManuals = filterManualsByStatus(manuals, 'published')
-
+export default function ManualsPage() {
   return (
     <ManualProvider>
       <Header fixed />
       <Main>
         <div className='flex-1'>
           <div className='flex items-center justify-between space-y-2'>
-            <h3 className='text-xl font-bold tracking-tight'>公開中のマニュアル</h3>
+            <h3 className='text-xl font-bold tracking-tight'>すべてのマニュアル</h3>
             <ManualPrimaryButtons />
           </div>
           <div className='mt-4'>
-            <DataTable data={publishedManuals} columns={columns} />
+            <DataTable data={manuals} columns={columns} />
           </div>
         </div>
       </Main>
       <ManualDialogs />
     </ManualProvider>
   )
-}
+} 
