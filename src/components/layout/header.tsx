@@ -2,6 +2,9 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
+import { BreadCrumb } from './bread-crumb'
+import { ProfileDropdown } from './profile-dropdown'
+import { currentUser } from '@/features/users/data/users'
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   fixed?: boolean
@@ -11,7 +14,6 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
 export const Header = ({
   className,
   fixed,
-  children,
   ...props
 }: HeaderProps) => {
   const [offset, setOffset] = React.useState(0)
@@ -31,16 +33,26 @@ export const Header = ({
   return (
     <header
       className={cn(
-        'flex items-center gap-3 sm:gap-4 bg-background p-4 h-16',
+        'flex items-center justify-between bg-background h-16 border-b',
         fixed && 'header-fixed peer/header w-[inherit] fixed z-50 rounded-md',
         offset > 10 && fixed ? 'shadow' : 'shadow-none',
         className
       )}
       {...props}
     >
-      <SidebarTrigger variant='outline' className='scale-125 sm:scale-100' />
-      <Separator orientation='vertical' className='h-6' />
-      {children}
+      <div className="flex items-center gap-3 pl-4">
+        <SidebarTrigger variant='outline' className='scale-125 sm:scale-100' />
+        <Separator orientation='vertical' className='h-6' />
+        <BreadCrumb />
+      </div>
+      <div className="flex items-center h-full">
+        <Separator orientation='vertical' className='h-full mr-2' />
+        <ProfileDropdown
+          name={`${currentUser.firstName} ${currentUser.lastName}`}
+          company="ロジポケサービス株式会社"
+          className="px-6"
+        />
+      </div>
     </header>
   )
 }

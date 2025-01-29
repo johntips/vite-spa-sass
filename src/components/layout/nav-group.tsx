@@ -77,13 +77,13 @@ const SidebarMenuLink = ({ item, href, isExternal }: { item: NavLink; href: stri
         >
           {isExternal ? (
             <>
-              <p className='font-semibold'>{item.title}</p>
-              {item.icon && <item.icon className="ml-auto" />}
+              <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
+              {item.icon && <item.icon className="group-data-[state=expanded]:ml-auto" />}
             </>
           ) : (
             <>
               {item.icon && <item.icon />}
-              <p className='font-semibold'>{item.title}</p>
+              <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
             </>
           )}
         </Link>
@@ -168,7 +168,7 @@ const SidebarMenuCollapsedDropdown = ({
             <DropdownMenuItem key={`${sub.title}-${sub.url}`} asChild>
               <Link
                 to={sub.url}
-                className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
+                // className={`${checkIsActive(href, sub) ? 'bg-primary' : ''}`}
               >
                 {sub.icon && <sub.icon />}
                 <span className='max-w-52 text-wrap'>{sub.title}</span>

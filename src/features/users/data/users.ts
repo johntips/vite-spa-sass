@@ -28,3 +28,16 @@ export const users = Array.from({ length: 20 }, () => {
     updatedAt: faker.date.recent(),
   }
 })
+
+export const currentUser = {
+  id: '1',
+  firstName: 'ロジ',
+  lastName: '太郎',
+  username: 'logitaro',
+  email: 'logitaro@example.com',
+  phoneNumber: '090-1234-5678',
+  status: 'active' as const,
+  role: 'admin' as const,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}
