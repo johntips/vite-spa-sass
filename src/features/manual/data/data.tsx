@@ -50,22 +50,22 @@ export const types: Record<ManualType, TypeItem> = {
   movie: {
     value: 'movie',
     label: '動画マニュアル',
-    icon: '/src/assets/manual_mov.svg',
+    icon: '/assets/manual_mov.svg',
   },
   image: {
     value: 'image',
     label: '画像',
-    icon: '/src/assets/manual_img.svg',
+    icon: '/assets/manual_img.svg',
   },
   pdf: {
     value: 'pdf',
     label: 'PDF',
-    icon: '/src/assets/manual_pdf.png',
+    icon: '/assets/manual_pdf.png',
   },
   folder: {
     value: 'folder',
     label: 'フォルダ',
-    icon: '/src/assets/folder.svg',
+    icon: '/assets/folder.svg',
   },
 } as const
 
