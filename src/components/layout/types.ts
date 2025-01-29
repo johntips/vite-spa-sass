@@ -20,13 +20,24 @@ interface BaseNavItem {
 
 type InternalUrl = LinkProps['to']
 type ExternalUrl = `https://${string}`
-type NavUrl = InternalUrl | ExternalUrl
 
-type NavLink = BaseNavItem & {
-  url: NavUrl
-  items?: never
+interface NavLinkBase extends BaseNavItem {
   isExternal?: boolean
 }
+
+type NavInternalLink = NavLinkBase & {
+  url: InternalUrl
+  items?: never
+  isExternal?: false
+}
+
+type NavExternalLink = NavLinkBase & {
+  url: ExternalUrl
+  items?: never
+  isExternal: true
+}
+
+type NavLink = NavInternalLink | NavExternalLink
 
 type NavCollapsible = BaseNavItem & {
   items: NavLink[]
@@ -47,3 +58,4 @@ interface SidebarData {
 }
 
 export type { SidebarData, NavGroup, NavItem, NavCollapsible, NavLink }
+

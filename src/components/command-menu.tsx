@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import {
-  IconArrowRightDashed,
   IconDeviceLaptop,
   IconMoon,
   IconSun,
@@ -41,35 +40,33 @@ export function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
           {sidebarData.navGroups.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem, i) => {
+              {group.items.map((navItem) => {
                 if (navItem.url)
                   return (
                     <CommandItem
-                      key={`${navItem.url}-${i}`}
-                      value={navItem.title}
-                      onSelect={() => {
-                        runCommand(() => navigate({ to: navItem.url }))
-                      }}
+                      key={navItem.title}
+                      onSelect={() =>
+                        navItem.isExternal
+                          ? window.open(navItem.url, '_blank', 'noopener,noreferrer')
+                          : runCommand(() => navigate({ to: navItem.url }))
+                      }
                     >
-                      <div className='mr-2 flex h-4 w-4 items-center justify-center'>
-                        <IconArrowRightDashed className='size-2 text-muted-foreground/80' />
-                      </div>
-                      {navItem.title}
+                      {navItem.icon && <navItem.icon className='mr-2 h-4 w-4' />}
+                      <span>{navItem.title}</span>
                     </CommandItem>
                   )
 
-                return navItem.items?.map((subItem, i) => (
+                return navItem.items?.map((subItem) => (
                   <CommandItem
-                    key={`${subItem.url}-${i}`}
-                    value={subItem.title}
-                    onSelect={() => {
-                      runCommand(() => navigate({ to: subItem.url }))
-                    }}
+                    key={subItem.title}
+                    onSelect={() =>
+                      subItem.isExternal
+                        ? window.open(subItem.url, '_blank', 'noopener,noreferrer')
+                        : runCommand(() => navigate({ to: subItem.url }))
+                    }
                   >
-                    <div className='mr-2 flex h-4 w-4 items-center justify-center'>
-                      <IconArrowRightDashed className='size-2 text-muted-foreground/80' />
-                    </div>
-                    {subItem.title}
+                    {subItem.icon && <subItem.icon className='mr-2 h-4 w-4' />}
+                    <span>{subItem.title}</span>
                   </CommandItem>
                 ))
               })}

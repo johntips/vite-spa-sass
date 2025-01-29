@@ -39,7 +39,7 @@ export function NavGroup({ title, items }: NavGroup) {
           const key = `${item.title}-${item.url}`
 
           if (!item.items)
-            return <SidebarMenuLink key={key} item={item} href={href} isExternal={item.isExternal} />
+            return <SidebarMenuLink key={key} item={item} href={href} />
 
           if (state === 'collapsed')
             return (
@@ -57,7 +57,7 @@ const NavBadge = ({ children }: { children: ReactNode }) => (
   <Badge className='text-xs rounded-full px-1 py-0'>{children}</Badge>
 )
 
-const SidebarMenuLink = ({ item, href, isExternal }: { item: NavLink; href: string; isExternal?: boolean }) => {
+const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
   const { setOpenMobile } = useSidebar()
   return (
     <SidebarMenuItem>
@@ -66,27 +66,27 @@ const SidebarMenuLink = ({ item, href, isExternal }: { item: NavLink; href: stri
         isActive={checkIsActive(href, item)}
         tooltip={item.title}
       >
-        <Link
-          to={item.url}
-          onClick={() => setOpenMobile(false)}
-          className="w-full"
-          {...(isExternal ? {
-            target: "_blank",
-            rel: "noopener noreferrer"
-          } : {})}
-        >
-          {isExternal ? (
-            <>
-              <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
-              {item.icon && <item.icon className="group-data-[state=expanded]:ml-auto" />}
-            </>
-          ) : (
-            <>
-              {item.icon && <item.icon />}
-              <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
-            </>
-          )}
-        </Link>
+        {item.isExternal ? (
+          <a
+            href={item.url}
+            onClick={() => setOpenMobile(false)}
+            className="w-full"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
+            {item.icon && <item.icon className="group-data-[state=expanded]:ml-auto" />}
+          </a>
+        ) : (
+          <Link
+            to={item.url}
+            onClick={() => setOpenMobile(false)}
+            className="w-full"
+          >
+            {item.icon && <item.icon />}
+            <p className='font-semibold group-data-[state=collapsed]:hidden'>{item.title}</p>
+          </Link>
+        )}
       </SidebarMenuButton>
     </SidebarMenuItem>
   )
@@ -123,11 +123,24 @@ const SidebarMenuCollapsible = ({
                   asChild
                   isActive={checkIsActive(href, subItem)}
                 >
-                  <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
-                    {subItem.icon && <subItem.icon />}
-                    <span>{subItem.title}</span>
-                    {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
-                  </Link>
+                  {subItem.isExternal ? (
+                    <a
+                      href={subItem.url}
+                      onClick={() => setOpenMobile(false)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {subItem.icon && <subItem.icon />}
+                      <span>{subItem.title}</span>
+                      {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
+                    </a>
+                  ) : (
+                    <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
+                      {subItem.icon && <subItem.icon />}
+                      <span>{subItem.title}</span>
+                      {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
+                    </Link>
+                  )}
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}
@@ -166,16 +179,28 @@ const SidebarMenuCollapsedDropdown = ({
           <DropdownMenuSeparator />
           {item.items.map((sub) => (
             <DropdownMenuItem key={`${sub.title}-${sub.url}`} asChild>
-              <Link
-                to={sub.url}
-                // className={`${checkIsActive(href, sub) ? 'bg-primary' : ''}`}
-              >
-                {sub.icon && <sub.icon />}
-                <span className='max-w-52 text-wrap'>{sub.title}</span>
-                {sub.badge && (
-                  <span className='ml-auto text-xs'>{sub.badge}</span>
-                )}
-              </Link>
+              {sub.isExternal ? (
+                <a
+                  href={sub.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center"
+                >
+                  {sub.icon && <sub.icon />}
+                  <span className='max-w-52 text-wrap'>{sub.title}</span>
+                  {sub.badge && (
+                    <span className='ml-auto text-xs'>{sub.badge}</span>
+                  )}
+                </a>
+              ) : (
+                <Link to={sub.url}>
+                  {sub.icon && <sub.icon />}
+                  <span className='max-w-52 text-wrap'>{sub.title}</span>
+                  {sub.badge && (
+                    <span className='ml-auto text-xs'>{sub.badge}</span>
+                  )}
+                </Link>
+              )}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
